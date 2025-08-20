@@ -21,9 +21,9 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  filled: "bg-gray-100 border border-transparent focus:border-blue-500",
-  outlined: "border border-gray-300 focus:border-blue-500",
-  ghost: "bg-transparent border border-transparent focus:border-blue-500",
+  filled: "bg-black border border-transparent focus:border-neon-pink",
+  outlined: "border border-neon-blue focus:border-neon-green",
+  ghost: "bg-transparent border border-transparent focus:border-neon-pink",
 };
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -40,11 +40,12 @@ export const InputField: React.FC<InputFieldProps> = ({
   type = "text",
 }) => {
   const inputClass = [
-    "rounded-md outline-none transition-colors w-full",
+    "rounded-md outline-none transition-colors w-full text-gray-200 bg-black",
     sizeClasses[size],
     variantClasses[variant],
     disabled ? "opacity-50 cursor-not-allowed" : "",
-    invalid ? "border-red-500 focus:border-red-500" : "",
+    invalid ? "border-neon-pink focus:border-neon-pink" : "",
+    "focus:shadow-neon",
   ]
     .filter(Boolean)
     .join(" ");
@@ -52,7 +53,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   return (
     <div className="flex flex-col gap-1 w-full">
       {label && (
-        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <label className="text-sm font-medium text-neon-green">{label}</label>
       )}
       <input
         type={type}
@@ -64,9 +65,9 @@ export const InputField: React.FC<InputFieldProps> = ({
         className={inputClass}
       />
       {invalid && errorMessage ? (
-        <span className="text-xs text-red-600">{errorMessage}</span>
+        <span className="text-xs text-neon-pink">{errorMessage}</span>
       ) : helperText ? (
-        <span className="text-xs text-gray-500">{helperText}</span>
+        <span className="text-xs text-neon-blue">{helperText}</span>
       ) : null}
     </div>
   );
