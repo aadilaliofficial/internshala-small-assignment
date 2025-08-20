@@ -54,50 +54,62 @@ export function DataTable<T extends { id: string | number }>({
     }
   }
 
-  if (loading) return <p className="p-4 text-center">Loading...</p>;
-  if (data.length === 0) return <p className="p-4 text-center">No data</p>;
+  if (loading) return <p className="p-4 text-center text-neon-green">Loading...</p>;
+  if (data.length === 0) return <p className="p-4 text-center text-neon-pink">No data</p>;
 
   return (
-    <table className="min-w-full border border-gray-200 text-sm">
-      <thead>
-        <tr className="bg-gray-50">
-          {selectable && <th className="p-2"></th>}
-          {columns.map(col => {
-            const thClass = [
-              "p-2 text-left",
-              col.sortable ? "cursor-pointer hover:underline" : "",
-            ]
-              .filter(Boolean)
-              .join(" ");
-            return (
-              <th key={col.key} className={thClass} onClick={() => handleSort(col)}>
-                {col.title}
-                {sortKey === col.key && (sortAsc ? " ↑" : " ↓")}
-              </th>
-            );
-          })}
-        </tr>
-      </thead>
-      <tbody>
-        {sortedData.map(row => (
-          <tr key={row.id} className="border-t hover:bg-gray-50">
-            {selectable && (
-              <td className="p-2">
-                <input
-                  type="checkbox"
-                  checked={selected.has(row.id)}
-                  onChange={() => toggleRow(row.id)}
-                />
-              </td>
-            )}
-            {columns.map(col => (
-              <td key={col.key} className="p-2">
-                {String(row[col.dataIndex])}
-              </td>
-            ))}
+    <div className="overflow-x-auto rounded-lg shadow-lg">
+      <table className="min-w-full border border-neon-blue text-sm bg-black text-gray-200 shadow-neon">
+        <thead>
+          <tr className="bg-black text-neon-pink">
+            {selectable && <th className="p-3"></th>}
+            {columns.map(col => {
+              const thClass = [
+                "p-3 text-left font-semibold",
+                col.sortable
+                  ? "cursor-pointer hover:text-neon-green transition duration-200"
+                  : "",
+              ]
+                .filter(Boolean)
+                .join(" ");
+              return (
+                <th key={col.key} className={thClass} onClick={() => handleSort(col)}>
+                  {col.title}
+                  {sortKey === col.key && (
+                    <span className="ml-1 text-neon-blue">
+                      {sortAsc ? "▲" : "▼"}
+                    </span>
+                  )}
+                </th>
+              );
+            })}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {sortedData.map(row => (
+            <tr
+              key={row.id}
+              className="border-t border-gray-700 hover:bg-neon-dark hover:text-white transition"
+            >
+              {selectable && (
+                <td className="p-3">
+                  <input
+                    type="checkbox"
+                    checked={selected.has(row.id)}
+                    onChange={() => toggleRow(row.id)}
+                    className="accent-neon-pink"
+                  />
+                </td>
+              )}
+              {columns.map(col => (
+                <td key={col.key} className="p-3">
+                  {String(row[col.dataIndex])}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
