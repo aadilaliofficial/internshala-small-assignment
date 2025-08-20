@@ -1,6 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-neon-pink {
+  color: #ff00ff;
+}
+.text-neon-green {
+  color: #39ff14;
+}
+.text-neon-blue {
+  color: #00f7ff;
+}
+
+.shadow-neon {
+  box-shadow: 0 0 5px #ff00ff, 0 0 10px #00f7ff, 0 0 15px #39ff14;
+}
+
+
 /* Neon colors */
 .text-neon-pink {
   color: #ff00ff;
